@@ -1,9 +1,10 @@
-(defproject ring-sse/ring-sse "0.2.9-SNAPSHOT"
+(defproject grinderrz/ring-sse "0.2.11"
   :description "Ring async (Spec 1.4+) Server-Sent Events handler (and helpers)"
   :url "https://github.com/bobby/ring-sse"
   :license {:name "The MIT License"
             :url "https://opensource.org/licenses/MIT"}
-  :dependencies [[org.clojure/clojure "1.8.0"]
+  :dependencies [[com.taoensso/timbre "4.10.0"]
+                 [org.clojure/clojure "1.8.0"]
                  [org.clojure/core.async "0.3.443"]
                  [ring/ring-core "1.6.1" :scope "provided"]]
   :profiles {:dev {:dependencies [[ring/ring-mock "0.3.0"]]}}

@@ -3,7 +3,8 @@
             [clojure.java.io :as io]
             [clojure.string :as string]
             [ring.core.protocols :as ring]
-            [ring.util.response :as ring-response]))
+            [ring.util.response :as ring-response]
+            [taoensso.timbre :as log]))
 
 (set! *warn-on-reflection* true)
 
@@ -75,9 +76,11 @@
                 (if (map? event)
                   (reduce (fn [agg [k v]] (assoc agg k (str v))) {} event)
                   {:data (str event)})]
+            (log/debug "ring-sse. sending to response-channel " event-id)
             (when (try
                     (async/>! response-channel (mk-data event-name event-data event-id))
                     (catch Throwable t
+                      (log/error "ring-sse. error while sending to response-channel" t)
                       (async/close! response-channel)
                       (raise t)
                       nil))
