@@ -1,4 +1,4 @@
-(defproject grinderrz/ring-sse "0.2.11"
+(defproject grinderrz/ring-sse "0.2.12"
   :description "Ring async (Spec 1.4+) Server-Sent Events handler (and helpers)"
   :url "https://github.com/bobby/ring-sse"
   :license {:name "The MIT License"
