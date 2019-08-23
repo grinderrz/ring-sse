@@ -11,19 +11,18 @@
   clojure.core.async.impl.channels.ManyToManyChannel
   (write-body-to-stream [ch response ^java.io.OutputStream output-stream]
     (async/thread
-      (with-open [os  output-stream
-                  out (io/writer os)]
-        (try
+      (try
+        (with-open [os  output-stream
+                    out (io/writer os)]
           (loop []
             (if-some [^String msg (async/<!! ch)]
               (do (.write out msg)
                   (.flush out)
                   (recur))
-              :done))
-          (catch Exception e
-            (prn {:event "error while writing from channel to output-stream" :exception e :ch ch})
-            :error)
-          (finally (async/close! ch)))))))
+              :done)))
+        (catch Exception e
+          :error)
+        (finally (async/close! ch))))))
 
 (def CRLF "\r\n")
 (def EVENT_FIELD "event: ")
